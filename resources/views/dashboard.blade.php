@@ -5,7 +5,7 @@
 
   <div class="mainpanel">
     
-    @include('_header_bar', ['admin' => $currentAdmin])
+    @include('_header_bar', ['admin' => '测试'])
     @include('_breadcrumb', ['icon' => 'fa-home', 'description' => '首页', 'items' => ['仪表盘']])
     
     <div class="contentpanel">

@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Index', 'prefix' => 'index'], function () {
-    Route::get('/', 'IndexController@showIndex');
-});
+Route::auth();
+
+Route::get('/index', 'IndexController@index');
+Route::get('/dashboard', 'HomeController@dashboard');

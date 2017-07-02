@@ -37,7 +37,7 @@ echo $bodyhtml;
 @yield('content')
 </section>
 
-<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/custom.js"></script>
 
