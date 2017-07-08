@@ -13,6 +13,8 @@
                 'oper/regionals' => array('url' => '/regionals', 'name' => '列表', 'icon' => 'fa fa-caret-right', 'level' => '2'),
                 'oper/menu-stores' => array('url' => '#', 'name' => '店铺', 'id' => 'dianpu', 'icon' => 'fa fa-th-large', 'level' => '1'),
                 'oper/stores/base' => array('url' => '/stores/base', 'name' => '渠道基础店铺', 'icon' => 'fa fa-caret-right', 'level' => '2'),
+                'oper/settings' => array('url' => '#', 'name' => '设置', 'id' => 'settings', 'icon' => 'fa fa-th-large', 'level' => '1'),
+                'oper/settings/memus' => array('url' => '/settings/memus', 'name' => '功能菜单', 'icon' => 'fa fa-caret-right', 'level' => '2'),
             );
             $html = '';
             foreach ($menuArr as $key => $val) {
@@ -28,7 +30,6 @@
             $html .= '</ul></li>';
             echo $html;
 ?>
-            <li class="li-home"><a href="/settings"><i class="fa fa-home"></i> <span>设置</span></a></li>
         </ul>
 
     </div>

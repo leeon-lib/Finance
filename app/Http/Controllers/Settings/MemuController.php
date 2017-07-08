@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Settings;
 
 use Redirect;
 use App\Http\Controllers\Controller;
@@ -14,6 +14,6 @@ class MemuController extends Controller
 
     public function index()
     {/*{{{*/
-        return view('welcome', $this->assign);
+        return view('settings.memus.list', $this->assign);
     }/*}}}*/
 }

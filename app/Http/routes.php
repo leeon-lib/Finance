@@ -7,13 +7,16 @@
 |
 */
 Route::auth();
+Route::any('/register', function () {
+    App::abort(404);
+});
 
 Route::get('/', 'IndexController@index');
-
 Route::get('/home', 'HomeController@home');
 Route::get('/dashboard', 'HomeController@dashboard');
 
 // 菜单管理
-Route::group(['prefix' => '/memus'], function () {
-    Route::get('/', 'MemuController@index');
+Route::group(['namespace' => 'Settings', 'prefix' => '/settings'], function () {
+    Route::get('/memus', 'MemuController@index');
+    Route::get('/add', 'MemuController@add');
 });

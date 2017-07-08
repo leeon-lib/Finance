@@ -14,7 +14,7 @@ class HomeController extends Controller
 
     public function home()
     {/*{{{*/
-        return Redirect::to('/dashboard');
+        return Redirect::to('dashboard');
     }/*}}}*/
 
     public function dashboard()

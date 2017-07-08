@@ -5,10 +5,6 @@
 <?php
     $hasEdit = false;
     $flag = 'scm/delivery_route';
-    $permissions = unserialize($currentAdmin->admins->permissions);
-    if ($currentAdmin->admins->is_super == '1' || (array_key_exists($flag, $permissions) && $permissions[$flag] == '40')) {
-        $hasEdit = true;
-    }
 ?>
 <style type="text/css">
 	th, td {
@@ -33,13 +29,6 @@
 							<div class="col-sm-8">
 								<select class="form-control input-sm mb15 chosen-select" id="delivery_route_id" name="delivery_route_id">
 									<option value="">不限</option>
-									@foreach ($deliveryRouteList as $deliveryRoute)
-										@if ($deliveryRoute->id == $searchCondition['delivery_route_id'])
-										<option value="{{$deliveryRoute->id}}" selected="selected">[{{$deliveryRoute->id}}]{{$deliveryRoute->name}}</option>
-										@else
-										<option value="{{$deliveryRoute->id}}">[{{$deliveryRoute->id}}]{{$deliveryRoute->name}}</option>
-										@endif
-									@endforeach
 								</select>
 							</div>
 						</div>
@@ -48,13 +37,6 @@
 							<div class="col-sm-8">
 								<select class="form-control input-sm mb15 chosen-select" id="store_id" name="store_id">
 									<option value="">不限</option>
-									@foreach ($storeList as $store)
-										@if ($store->id == $searchCondition['store_id'])
-										<option value="{{$store->id}}" selected="selected">[{{$store->id}}]{{$store->name}}</option>
-										@else
-										<option value="{{$store->id}}">[{{$store->id}}]{{$store->name}}</option>
-										@endif
-									@endforeach
 								</select>
 							</div>
 						</div>
@@ -64,11 +46,9 @@
 								<button id="btn_search" class="btn btn-white tooltips" title="搜索">
 									<i class="glyphicon glyphicon-search" style="line-height:1.5;margin-top:0px;"></i>
 								</button>
-								@if ($hasEdit)
 								<a class="btn btn-white tooltips" href="/delivery_route/add" title="添加" style="margin-left:10px;">
 									<i class="glyphicon glyphicon-plus" style="line-height:1.5;margin-top:0px;"></i>
 								</a>
-								@endif
 							</div>
 						</div>
                     </form>
@@ -134,8 +114,6 @@
     @section('script')
 </script>
 
-{{HTML::script('/js/services/common.js');}}
-{{HTML::script('/js/services/dialogModal.js');}}
 
 <script type="text/javascript">
 $(".chosen-select").chosen({'width': '100%', 'white-space': 'nowrap'});
