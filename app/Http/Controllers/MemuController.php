@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 
 use Redirect;
-use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+class MemuController extends Controller
 {
     public function __construct()
     {/*{{{*/
-         
+         parent::__construct();
     }/*}}}*/
 
     public function index()
     {/*{{{*/
-        return view('welcome');
+        return view('welcome', $this->assign);
     }/*}}}*/
 }
-

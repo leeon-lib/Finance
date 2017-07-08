@@ -7,7 +7,7 @@
   <meta name="author" content="">
   <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
 
-  <title><?php echo Config::get('app.app_name'); ?>运营管理系统</title>
+  <title>基金管理系统</title>
 
   <link href="/css/style.default.css" rel="stylesheet">
 

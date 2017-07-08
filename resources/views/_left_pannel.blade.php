@@ -1,6 +1,6 @@
 <div class="leftpanel">
     <div class="logopanel">
-        <h1><span>[</span> 运营 <span>]</span></h1>
+        <h1><span>[</span> 基金管理 <span>]</span></h1>
     </div><!-- logopanel -->
     <div class="leftpanelinner">
         <h5 class="sidebartitle">功能栏</h5>
@@ -28,6 +28,7 @@
             $html .= '</ul></li>';
             echo $html;
 ?>
+            <li class="li-home"><a href="/settings"><i class="fa fa-home"></i> <span>设置</span></a></li>
         </ul>
 
     </div>

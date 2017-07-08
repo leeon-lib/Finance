@@ -2,7 +2,7 @@
   
   <a class="menutoggle"><i class="fa fa-bars"></i></a>
   <form class="searchform" action="/orders/search" method="GET">
-     <input type="text" class="form-control" name="string" placeholder="订单号/手机号/小麦XM号...">
+     <input type="text" class="form-control" name="string" placeholder="anything...">
   </form>
 
   <div class="header-right">
@@ -11,7 +11,7 @@
         <div class="btn-group">
           <button type="button" class="btn btn-default dropdown-toggle" id="btn_center" data-toggle="dropdown">
             <img src="/images/loggeduser.png" alt="" />
-                超级管理员
+                {{ $currentAdmin }}
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
