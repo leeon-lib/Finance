@@ -40,6 +40,10 @@ echo $bodyhtml;
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/custom.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
 
 <script type="text/javascript">
 @section('script')
