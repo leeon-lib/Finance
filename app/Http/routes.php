@@ -15,8 +15,12 @@ Route::get('/', 'IndexController@index');
 Route::get('/home', 'HomeController@home');
 Route::get('/dashboard', 'HomeController@dashboard');
 
-// 菜单管理
+// 系统设置
 Route::group(['namespace' => 'Settings', 'prefix' => '/settings'], function () {
-    Route::get('/memus', 'MemuController@index');
-    Route::get('/add', 'MemuController@add');
+    // 菜单管理
+    Route::group(['prefix' => '/memus'] ,function () {
+        Route::get('/', 'MemuController@index');
+        Route::get('/add', 'MemuController@showAdd');
+        Route::get('/edit', 'MemuController@showEdit');
+    });
 });

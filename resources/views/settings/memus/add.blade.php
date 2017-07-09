@@ -1,101 +1,77 @@
 @extends('layout')
 @section('content')
-@include('_left_pannel', ['action' => '/delivery_route'])
+@include('_left_pannel', ['action' => '/settings/memus'])
 
-<?php
+@php
     $hasEdit = false;
     $flag = 'scm/delivery_route';
-    $permissions = unserialize($currentAdmin->admins->permissions);
-    if($currentAdmin->admins->is_super =='1' || (array_key_exists($flag, $permissions) && $permissions[$flag]=='40')){
-        $hasEdit = true;
-    }
-?>
-
-<style>
-    .row {
-        padding-bottom: 10px;
-    }
-    th, td {
-		text-align: center;
-	}
-</style>
+@endphp
 
 <div class="mainpanel">
 
     @include('_header_bar', ['admin' => $currentAdmin])
-    @include('_breadcrumb', ['description' => '添加线路', 'items' => ['线路', '添加']])
+    @include('_breadcrumb', ['description' => '添加菜单', 'items' => ['设置', '功能菜单', '添加']])
 
     <div class="contentpanel" >
-        <form id="form-add" class="form-horizontal form-bordered" action="/delivery_route/add" method="POST">
+        <form id="form-add" class="form-horizontal form-bordered" action="/settings/memus/add" method="POST">
             <div class="panel panel-default" style="margin-bottom: 10px">
-                @if ($errorMsg)
-                    <div class="alert alert-warning" style="text-align:center;margin-bottom: 0px;">
+                <div class="panel-body" style="padding-bottom: 0">
+                    @if (!empty($errorMsg))
+                    <div class="alert alert-danger" style="text-align:center;margin-top: 10px;">
                         <span>{{ $errorMsg }}</span>
                     </div>
-                @endif
-                <div class="panel-body" style="padding-bottom: 0">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <div class="row">
-                                <label class="col-sm-4 control-label">线路</label>
-                                <div class="col-sm-4">
-									<input type="text" class="form-control" id="delivery_route_name" name="delivery_route_name" placeholder="请输入线路名称">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <label class="col-sm-4 control-label">店铺</label>
-                                <div class="col-sm-4">
-                                    <select class="form-control chosen-select" id="store" name="store_id" data-placeholder="选择店铺添加至列表">
-                                    	<option value=""></option>
-										@foreach ($storeList as $store)
-											<option value="{{$store->id}}"
-												province="{{$store->regionalProvince->regional_name}}"
-												city="{{$store->regionalCity->regional_name}}"
-												area="{{$store->parent_area_name}}"
-												store_status="{{ $store->status == 'OPENING' ? '营业中' : '已关店' }}">
-												[{{$store->id}}]{{$store->name}}
-											</option>
-										@endforeach
-									</select>
-                                </div>
-                                <button class="btn btn-primary btn-add-store" type="button" style="margin-top: 3px;">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                </button>
-                            </div>
+                    @endif
+                    <div class="row">
+                        <label class="col-sm-4 control-label">名称</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="memu_name" name="memu_name" placeholder="请输入菜单名称">
                         </div>
+                    </div>
 
-                        <div class="form-group" style="padding: 0px;">
-                            <div class="table-responsive">
-                                <table class="table table-primary">
-                                    <thead>
-                                    <tr>
-                                        <th>省</th>
-                                        <th>市</th>
-                                        <th>区(县)</th>
-                                        <th>店铺</th>
-										<th>状态</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="list">
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="row">
+                        <label class="col-sm-4 control-label">模块</label>
+                        <div class="col-sm-4">
+                            <select class="form-control chosen-select" id="memu_level" name="memu_level" data-placeholder="请选择所属模块">
+                                <option value=""></option>
+                                <option value="0">新模块</option>
+                                @foreach ($memuLevelMap as $levelKey => $levelName)
+                                    <option value="{{ $levelKey }}">{{ $levelName }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-sm-4 control-label">标识</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="permission_flag" name="permission_flag" placeholder="请输入权限标识">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-sm-4 control-label">URL</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="url" name="url" placeholder="请输入系统路径">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-sm-4 control-label">图标</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="memu_icon" name="memu_icon" placeholder="请输入系统图标">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel-footer" style="padding: 10px 5px 10px;display: none;">
-                <div class="row save-btn-row">
-                    <div style="text-align: center;margin-bottom: 10px;">
-                        <button class="btn btn-default" onclick="return !! history.go(-1) && false;">取消</button>
-                        <button class="btn btn-primary save-btn" type="button">保存</button>
+
+                <div class="panel-footer">
+                    <div style="width: 20%; margin:0 auto;">
+                        <button class="btn btn-primary btn-block" id="btn-add-store" type="button">
+                            <!-- <i class="glyphicon glyphicon-plus">添加</i> -->
+                            保存
+                        </button>
                     </div>
                 </div>
-                <div class="alert alert-danger errorMsg-box" style="clear:both;text-align: center;height:0px;padding:0px;margin:0px;border:0">
-                    <span id="errorMsg" style="color:red;"></span>
-                </div>
+
             </div>
         </form>
     </div>
@@ -105,9 +81,6 @@
 <script type="text/javascript">
     @section('script')
 </script>
-
-{{HTML::script('/js/services/common.js');}}
-{{HTML::script('/js/services/dialogModal.js');}}
 
 <script type="text/javascript">
     $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});

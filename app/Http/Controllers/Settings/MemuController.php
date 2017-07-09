@@ -16,4 +16,10 @@ class MemuController extends Controller
     {/*{{{*/
         return view('settings.memus.list', $this->assign);
     }/*}}}*/
+
+    public function showAdd()
+    {/*{{{*/
+        $this->assign['memuLevelMap'] = ['second' => '设置'];
+        return view('settings.memus.add', $this->assign);
+    }/*}}}*/
 }

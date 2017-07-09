@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 
-@include('_left_pannel', ['action' => '/delivery_route'])
+@include('_left_pannel', ['action' => '/settings/memus'])
 <?php
     $hasEdit = false;
     $flag = 'scm/delivery_route';
@@ -46,7 +46,7 @@
 								<button id="btn_search" class="btn btn-white tooltips" title="搜索">
 									<i class="glyphicon glyphicon-search" style="line-height:1.5;margin-top:0px;"></i>
 								</button>
-								<a class="btn btn-white tooltips" href="/delivery_route/add" title="添加" style="margin-left:10px;">
+								<a class="btn btn-white tooltips" href="/settings/memus/add" title="添加" style="margin-left:10px;">
 									<i class="glyphicon glyphicon-plus" style="line-height:1.5;margin-top:0px;"></i>
 								</a>
 							</div>
