@@ -263,8 +263,7 @@ class ComposerStaticInit76308fede9978066765761c21a989641
     );
 
     public static $classMap = array (
-        'CreateModeslMemusTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_10_002027_create_modesl_memus_table.php',
-        'CreateModeslsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_10_002018_create_modesls_table.php',
+        'CreateMemusTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_10_071324_create_memus_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',

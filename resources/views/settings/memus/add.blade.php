@@ -24,18 +24,18 @@
                     <div class="row">
                         <label class="col-sm-4 control-label">名称</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="memu_name" name="memu_name" placeholder="请输入菜单名称">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="请输入菜单名称">
                         </div>
                     </div>
 
                     <div class="row">
                         <label class="col-sm-4 control-label">模块</label>
                         <div class="col-sm-4">
-                            <select class="form-control chosen-select" id="memu_level" name="memu_level" data-placeholder="请选择所属模块">
+                            <select class="form-control chosen-select" id="parent_id" name="parent_id" data-placeholder="请选择所属模块">
                                 <option value=""></option>
                                 <option value="0">新模块</option>
-                                @foreach ($memuLevelMap as $levelKey => $levelName)
-                                    <option value="{{ $levelKey }}">{{ $levelName }} </option>
+                                @foreach ($baseMemuList as $memu)
+                                    <option value="{{ $memu->id }}">{{ $memu->name }} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -44,7 +44,7 @@
                     <div class="row">
                         <label class="col-sm-4 control-label">标识</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="permission_flag" name="permission_flag" placeholder="请输入权限标识">
+                            <input type="text" class="form-control" id="flag" name="flag" placeholder="请输入权限标识">
                         </div>
                     </div>
 
@@ -58,17 +58,14 @@
                     <div class="row">
                         <label class="col-sm-4 control-label">图标</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="memu_icon" name="memu_icon" placeholder="请输入系统图标">
+                            <input type="text" class="form-control" id="icon" name="icon" placeholder="请输入系统图标">
                         </div>
                     </div>
                 </div>
 
                 <div class="panel-footer">
                     <div style="width: 20%; margin:0 auto;">
-                        <button class="btn btn-primary btn-block" id="btn-add-store" type="button">
-                            <!-- <i class="glyphicon glyphicon-plus">添加</i> -->
-                            保存
-                        </button>
+                        <button class="btn btn-primary btn-block" id="btn-save">保存</button>
                     </div>
                 </div>
 
@@ -82,12 +79,14 @@
     @section('script')
 </script>
 
+<script src="/js/common.js"></script>
+
 <script type="text/javascript">
     $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 
     // 添加店铺
     $('.btn-add-store').on('click', function() {
-    	var store_id = $('#store').val();
+        var store_id = $('#store').val();
         if (0 == store_id) {
             return showErrorMsg('请选择店铺！');
         } else {
@@ -108,30 +107,6 @@
             // 耗用选择列表除去该条
             this_store.remove();
             $('#store').trigger("chosen:updated");
-        }
-    });
-
-    // 删除店铺
-    $('.btn-delete-store').live('click', function() {
-        var tr = $(this).parents('tr');
-		var store_id = tr.find('#store_id').val();
-		var province = $.trim(tr.find('#province').text());
-		var city = $.trim(tr.find('#city').text());
-		var area = $.trim(tr.find('#area').text());
-		var name = $.trim(tr.find('#name').text());
-		var store_status = $.trim(tr.find('#store_status').text());
-
-		tr.remove();
-		var option = '<option value="'+store_id+'" ';
-		option += 'province="'+province+'" city="'+city+'" area="'+area+'"' + 'store_status="'+ store_status +'">';
-		option += '['+store_id+']'+name;
-		option += '</option>';
-		$('#store').prepend(option);
-		$('#store').trigger("chosen:updated");
-
-        var trs = $('.list tr');
-        if (0 == trs.length) {
-            $('.save-btn-row').hide();
         }
     });
 

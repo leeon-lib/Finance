@@ -22,5 +22,6 @@ Route::group(['namespace' => 'Settings', 'prefix' => '/settings'], function () {
         Route::get('/', 'MemuController@index');
         Route::get('/add', 'MemuController@showAdd');
         Route::get('/edit', 'MemuController@showEdit');
+        Route::post('/add', 'MemuController@add');
     });
 });

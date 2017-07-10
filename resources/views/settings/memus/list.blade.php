@@ -25,18 +25,13 @@
                 <div class="panel-body">
                     <form id="frm_search" class="form-horizontal" method="post" action="/delivery_route">
 						<div class="form-group col-sm-4">
-							<label class="col-sm-4 control-label">线路</label>
+							<label class="col-sm-4 control-label">模块</label>
 							<div class="col-sm-8">
 								<select class="form-control input-sm mb15 chosen-select" id="delivery_route_id" name="delivery_route_id">
 									<option value="">不限</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-group col-sm-4">
-							<label class="col-sm-4 control-label">店铺</label>
-							<div class="col-sm-8">
-								<select class="form-control input-sm mb15 chosen-select" id="store_id" name="store_id">
-									<option value="">不限</option>
+                                    @foreach($baseMemuList as $memu)
+                                        <option value="{{ $memu->id }}">{{ $memu->name }}</option>
+                                    @endforeach
 								</select>
 							</div>
 						</div>
@@ -55,7 +50,7 @@
 
                     <div class="clearfix" id="before-alert-warning"></div>
 
-                    @if(empty($list))
+                    @if(empty($baseMemuList))
                     <div class="alert alert-warning" style="clear: both;text-align: center;margin-top:30px;">
                         暂无符合当前条件的数据
                     </div>
@@ -64,11 +59,11 @@
                         <table class="table table-primary mb30">
                             <thead>
                             <tr>
-                                <th width="12%">省</th>
-                                <th width="12%">市</th>
-                                <th width="12%">区(县)</th>
-                                <th width="25%">店铺</th>
-                                <th width="15%">状态</th>
+                                <th width="12%">ID</th>
+                                <th width="12%">名称</th>
+                                <th width="12%">标识</th>
+                                <th width="25%">URL</th>
+                                <th width="15%">icon</th>
                                 <th>线路</th>
                                 @if($hasEdit)
                                 <th width="11%">操作</th>
@@ -76,29 +71,15 @@
                             </tr>
                             </thead>
                             <tbody class="list">
-                              @foreach ($list as $value)
-                                @foreach ($value as $store)
-                                <tr id="{{$store->id}}">
-                                    <td>{{$store->regionalProvince->regional_name}}</td>
-                                    <td>{{$store->regionalCity->regional_name}}</td>
-                                    <td>{{$store->parent_area_name}}</td>
-                                    <td>{{$store->name}}</td>
-                                    <td>{{ $store->status == 'OPENING' ? '营业中' : '已关店' }}</td>
-                  									<td>
-                  									@if(is_object($store->deliveryRoute))
-                  										<a href="/delivery_route/{{$store->deliveryRoute->id}}"> {{ $store->deliveryRoute->name }} </a>
-                  									@endif
-                  									</td>
-                                    @if ($hasEdit)
-                                    <td class="table-action">
-                    										@if(is_object($store->deliveryRoute))
-                    										<button class="btn btn-xs btn-danger btn-delete" delivery_route_id="{{$store->deliveryRoute->id}}">删除</button>
-                    										@endif
-										                </td>
-                                    @endif
+                              @foreach ($baseMemuList as $memu)
+                                <tr id="{{$memu->id}}">
+                                    <td>{{$memu->id}}</td>
+                                    <td>{{$memu->name}}</td>
+                                    <td>{{$memu->flag}}</td>
+                                    <td>{{$memu->url}}</td>
+                                    <td>{{ $memu->icon }}</td>
                                 </tr>
                                 @endforeach
-              								@endforeach
                             </tbody>
                         </table>
                     </div><!-- table-responsive -->
