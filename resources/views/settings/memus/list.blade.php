@@ -17,7 +17,7 @@
 </style>
 <div class="mainpanel">
     @include('_header_bar', ['admin' => $currentAdmin])
-    @include('_breadcrumb', ['description' => '添加、操作、查看线路', 'items' => ['线路', '线路列表']])
+    @include('_breadcrumb', ['description' => '添加、操作、查看功能菜单', 'items' => ['设置', '功能菜单', '列表']])
 
     <div class="contentpanel panel-email">
         <div class="col-sm-12 col-lg-12">
@@ -25,21 +25,21 @@
                 <div class="panel-body">
                     <form id="frm_search" class="form-horizontal" method="post" action="/delivery_route">
 						<div class="form-group col-sm-4">
-							<label class="col-sm-4 control-label">线路</label>
+							<label class="col-sm-4 control-label">模块</label>
 							<div class="col-sm-8">
-								<select class="form-control input-sm mb15 chosen-select" id="delivery_route_id" name="delivery_route_id">
+								<select class="form-control input-sm mb15 chosen-select" id="memu_id" name="memu_id">
 									<option value="">不限</option>
+                                    @foreach($baseMemuList as $baseMemu)
+                                        @if (is_object($currentMemu) && $currentMemu->id == $baseMemu->id)
+                                        <option value="{{ $baseMemu->id }}" selected>{{ $baseMemu->name }}</option>
+                                        @else
+                                        <option value="{{ $baseMemu->id }}">{{ $baseMemu->name }}</option>
+                                        @endif
+                                    @endforeach
 								</select>
 							</div>
 						</div>
-						<div class="form-group col-sm-4">
-							<label class="col-sm-4 control-label">店铺</label>
-							<div class="col-sm-8">
-								<select class="form-control input-sm mb15 chosen-select" id="store_id" name="store_id">
-									<option value="">不限</option>
-								</select>
-							</div>
-						</div>
+
 						<div class="form-group col-sm-3">
 							<label class="col-sm-5 control-label"></label>
 							<div class="col-sm-7" style="text-align:right;">
@@ -55,7 +55,7 @@
 
                     <div class="clearfix" id="before-alert-warning"></div>
 
-                    @if(empty($list))
+                    @if(empty($memuList))
                     <div class="alert alert-warning" style="clear: both;text-align: center;margin-top:30px;">
                         暂无符合当前条件的数据
                     </div>
@@ -64,41 +64,26 @@
                         <table class="table table-primary mb30">
                             <thead>
                             <tr>
-                                <th width="12%">省</th>
-                                <th width="12%">市</th>
-                                <th width="12%">区(县)</th>
-                                <th width="25%">店铺</th>
-                                <th width="15%">状态</th>
-                                <th>线路</th>
+                                <th width="12%">ID</th>
+                                <th width="12%">名称</th>
+                                <th width="12%">标识</th>
+                                <th width="25%">URL</th>
+                                <th width="15%">icon</th>
                                 @if($hasEdit)
                                 <th width="11%">操作</th>
                                 @endif
                             </tr>
                             </thead>
                             <tbody class="list">
-                              @foreach ($list as $value)
-                                @foreach ($value as $store)
-                                <tr id="{{$store->id}}">
-                                    <td>{{$store->regionalProvince->regional_name}}</td>
-                                    <td>{{$store->regionalCity->regional_name}}</td>
-                                    <td>{{$store->parent_area_name}}</td>
-                                    <td>{{$store->name}}</td>
-                                    <td>{{ $store->status == 'OPENING' ? '营业中' : '已关店' }}</td>
-                  									<td>
-                  									@if(is_object($store->deliveryRoute))
-                  										<a href="/delivery_route/{{$store->deliveryRoute->id}}"> {{ $store->deliveryRoute->name }} </a>
-                  									@endif
-                  									</td>
-                                    @if ($hasEdit)
-                                    <td class="table-action">
-                    										@if(is_object($store->deliveryRoute))
-                    										<button class="btn btn-xs btn-danger btn-delete" delivery_route_id="{{$store->deliveryRoute->id}}">删除</button>
-                    										@endif
-										                </td>
-                                    @endif
+                              @foreach ($memuList as $memu)
+                                <tr id="{{$memu->id}}">
+                                    <td>{{$memu->id}}</td>
+                                    <td>{{$memu->name}}</td>
+                                    <td>{{$memu->flag}}</td>
+                                    <td>{{$memu->url}}</td>
+                                    <td>{{ $memu->icon }}</td>
                                 </tr>
                                 @endforeach
-              								@endforeach
                             </tbody>
                         </table>
                     </div><!-- table-responsive -->
@@ -125,23 +110,10 @@ $(document).ready(function() {
 	}
 });
 
-$('.btn-delete').on('click', function() {
-	var button = $(this);
-	var delivery_route_id = button.attr('delivery_route_id');
+$('#memu_id').on('change', function() {
+    var memu_id = $('#memu_id').val();
 
-	var is_confirm = confirm('注意，此删除将清空该线路已设置的所有店铺，确定删除吗？');
-	if (! is_confirm) {
-		return false;
-	}
-
-	$.post('/delivery_route/delete/' + delivery_route_id, {}, function(data) {
-		if (data.error_no) {
-			showErrorMsg(data.error_msg);
-		} else {
-			showSuccessMsg(data.error_msg);
-			location.href = '/delivery_route';
-		}
-	});
+    window.location.href = '/settings/memus/' + memu_id;
 });
 
 @stop

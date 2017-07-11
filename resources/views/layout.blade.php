@@ -7,7 +7,7 @@
   <meta name="author" content="">
   <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
 
-  <title>基金管理系统</title>
+  <title>物流管理系统</title>
 
   <link href="/css/style.default.css" rel="stylesheet">
 
@@ -42,6 +42,7 @@ echo $bodyhtml;
 <script src="/js/custom.js"></script>
 <script src="/js/toggles.min.js"></script>
 <script src="/js/jquery.cookies.js"></script>
+<script src="/js/jquery.form.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/jquery.sparkline.min.js"></script>
 

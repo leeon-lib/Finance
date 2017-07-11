@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Settings;
 
-use Redirect;
+use Validator;
+use App\Models\Memu;
+use Request, Response, Redirect;
 use App\Http\Controllers\Controller;
 
 class MemuController extends Controller
@@ -12,14 +14,46 @@ class MemuController extends Controller
          parent::__construct();
     }/*}}}*/
 
-    public function index()
+    public function index($memu = null)
     {/*{{{*/
+        if ($memu instanceof Memu) {
+            $memuList = Memu::getSubMemuList($memu);
+        } else {
+            $memuList = Memu::getBaseMemuList();
+        }
+
+        $this->assign['currentMemu'] = $memu;
+        $this->assign['memuList'] = $memuList;
+        $this->assign['baseMemuList'] = Memu::getBaseMemuList();
         return view('settings.memus.list', $this->assign);
     }/*}}}*/
 
     public function showAdd()
     {/*{{{*/
-        $this->assign['memuLevelMap'] = ['second' => '设置'];
+        $this->assign['baseMemuList'] = Memu::getBaseMemuList();
+
         return view('settings.memus.add', $this->assign);
+    }/*}}}*/
+
+    public function add()
+    {/*{{{*/
+        $columns = ['name' => 'aa', 'parent_id', 'flag', 'url', 'icon'];
+        $params = $this->getRequestParams($columns);
+        if (($validator = $this->validator($params))->fails()) {
+            dd($validator->errors()->all());
+        }
+
+        $memu = (new Memu)->create($params);
+        return Redirect::to('/settings/memus');
+    }/*}}}*/
+
+    private function validator(array $params)
+    {/*{{{*/
+        return Validator::make($params, [
+            'name' => 'required|max:5|min:2',
+            'parent_id' => 'required',
+            'flag' => 'required|max:32|min:5',
+            // 'url' => 'required|max:255|min:5',
+        ]);
     }/*}}}*/
 }
