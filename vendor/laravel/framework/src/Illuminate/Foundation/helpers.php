@@ -779,3 +779,25 @@ if (! function_exists('view')) {
         return $factory->make($view, $data, $mergeData);
     }
 }
+
+if (! function_exists('is_empty')) {
+    /**
+     *
+     * @param  string
+     * @return  bool
+     */
+    function is_empty($obj)
+    {
+        if (empty($obj))
+        {
+            return true;
+        }
+
+        if ($obj instanceof Illuminate\Support\Collection)
+        {
+            return empty($obj->all());
+        }
+
+        return false;
+    }
+}

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Redirect;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -14,7 +13,7 @@ class HomeController extends Controller
 
     public function home()
     {/*{{{*/
-        return Redirect::to('dashboard');
+        return redirect('dashboard');
     }/*}}}*/
 
     public function dashboard()

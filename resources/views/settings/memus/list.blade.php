@@ -43,9 +43,6 @@
 						<div class="form-group col-sm-3">
 							<label class="col-sm-5 control-label"></label>
 							<div class="col-sm-7" style="text-align:right;">
-								<button id="btn_search" class="btn btn-white tooltips" title="搜索">
-									<i class="glyphicon glyphicon-search" style="line-height:1.5;margin-top:0px;"></i>
-								</button>
 								<a class="btn btn-white tooltips" href="/settings/memus/add" title="添加" style="margin-left:10px;">
 									<i class="glyphicon glyphicon-plus" style="line-height:1.5;margin-top:0px;"></i>
 								</a>

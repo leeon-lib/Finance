@@ -19,8 +19,6 @@ Route::get('/dashboard', 'HomeController@dashboard');
 Route::group(['namespace' => 'Settings', 'prefix' => '/settings'], function () {
     // 菜单管理
     Route::group(['prefix' => '/memus'] ,function () {
-
-
         Route::get('/add', 'MemuController@showAdd');
         Route::get('/edit', 'MemuController@showEdit');
         Route::post('/add', 'MemuController@add');

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Settings;
 
-use Validator;
+use Service;
 use App\Models\Memu;
-use Request, Response, Redirect;
 use App\Http\Controllers\Controller;
 
 class MemuController extends Controller
@@ -16,6 +15,7 @@ class MemuController extends Controller
 
     public function index($memu = null)
     {/*{{{*/
+        Service::call('Test@aa', []);
         if ($memu instanceof Memu) {
             $memuList = Memu::getSubMemuList($memu);
         } else {
@@ -44,16 +44,19 @@ class MemuController extends Controller
         }
 
         $memu = (new Memu)->create($params);
-        return Redirect::to('/settings/memus');
+        return redirect('/settings/memus');
     }/*}}}*/
 
     private function validator(array $params)
     {/*{{{*/
-        return Validator::make($params, [
+        return validator($params, [
             'name' => 'required|max:5|min:2',
             'parent_id' => 'required',
             'flag' => 'required|max:32|min:5',
             // 'url' => 'required|max:255|min:5',
+        ], [
+            'name.required' => '菜单名称必填',
+            'name.min' => '菜单名称最短两位',
         ]);
     }/*}}}*/
 }

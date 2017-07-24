@@ -32,7 +32,6 @@ class Controller extends BaseController
                 $key = $value;
                 $default = null;
             } else {
-                $key = $key;
                 $default = $value;
             }
 

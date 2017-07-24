@@ -156,6 +156,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Custom Service Providers...
+         */
+        App\Providers\ServiceServiceProvider::class,        // 领域服务层
+        // App\Providers\RepositoryServiceProvider::class,     // 资源贮藏层
     ],
 
     /*
@@ -201,6 +206,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-    ],
 
+        // Custom alias...
+        'Service' => App\Providers\Facades\Service::class,
+    ],
 ];
